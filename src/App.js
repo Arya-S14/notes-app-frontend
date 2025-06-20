@@ -6,25 +6,25 @@ function App() {
   const [input, setInput] = useState('');
 
   // Fetch notes from backend
-  useEffect(() => {
-    axios.get('https://notes-api.onrender.com/api/notes')
-      .then(res => setNotes(res.data))
-      .catch(err => console.error(err));
-  }, []);
+const API_BASE = 'https://notes-app-bf45.onrender.com';
 
-  // Add note
-  const addNote = async () => {
-    if (!input) return;
-    const res = await axios.post('https://notes-api.onrender.com/api/notes', { text: input });
-    setNotes([...notes, res.data]);
-    setInput('');
-  };
+useEffect(() => {
+  axios.get(`${API_BASE}/api/notes`)
+    .then(res => setNotes(res.data))
+    .catch(err => console.error(err));
+}, []);
 
-  // Delete note
-  const deleteNote = async (id) => {
-    await axios.delete(`https://notes-api.onrender.com/api/notes/${id}`);
-    setNotes(notes.filter(note => note._id !== id));
-  };
+const addNote = async () => {
+  if (!input) return;
+  const res = await axios.post(`${API_BASE}/api/notes`, { text: input });
+  setNotes([...notes, res.data]);
+  setInput('');
+};
+
+const deleteNote = async (id) => {
+  await axios.delete(`${API_BASE}/api/notes/${id}`);
+  setNotes(notes.filter(note => note._id !== id));
+};
 
   return (
     <div style={{ padding: "2rem", fontFamily: "Arial",backgroundColor:"pink",textAlign:"center" }}>
