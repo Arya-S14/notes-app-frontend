@@ -7,7 +7,7 @@ function App() {
 
   // Fetch notes from backend
   useEffect(() => {
-    axios.get('http://localhost:5000/api/notes')
+    axios.get('https://notes-api.onrender.com/api/notes')
       .then(res => setNotes(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -15,14 +15,14 @@ function App() {
   // Add note
   const addNote = async () => {
     if (!input) return;
-    const res = await axios.post('http://localhost:5000/api/notes', { text: input });
+    const res = await axios.post('https://notes-api.onrender.com/api/notes', { text: input });
     setNotes([...notes, res.data]);
     setInput('');
   };
 
   // Delete note
   const deleteNote = async (id) => {
-    await axios.delete(`http://localhost:5000/api/notes/${id}`);
+    await axios.delete(`https://notes-api.onrender.com/api/notes/${id}`);
     setNotes(notes.filter(note => note._id !== id));
   };
 
